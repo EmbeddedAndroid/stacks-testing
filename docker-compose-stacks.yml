@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+  stacks:
+    image: stacks:latest
+    container_name: stacks
+    build:
+      context: ./docker
+      args:
+        STACKS_NODE_VERSION: '2.4.0.0.0'
+        GIT_URI: https://github.com/stacks-network/stacks-blockchain.git
+        GIT_BRANCH: develop
+    restart: always
+    network_mode: "host"
+    volumes:
+      # mount point for chainstate data      
+      - /mnt/node:/root/stacks-node/data
+    environment:
+      - STACKS_LOG_DEBUG=0
+      - STACKS_LOG_JSON=0
